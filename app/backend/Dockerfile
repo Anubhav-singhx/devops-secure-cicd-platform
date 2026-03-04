@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:25-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
@@ -10,7 +10,7 @@ COPY tests/ ./tests/
 
 RUN npm test || echo "Tests completed"
 
-FROM node:20-alpine AS production
+FROM node:25-alpine AS production
 
 RUN addgroup -g 1001 -S appgroup && \
     adduser -S appuser -u 1001 -G appgroup
