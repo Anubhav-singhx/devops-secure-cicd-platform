@@ -146,3 +146,43 @@ vite.config.ts.timestamp-*
 tfplan
 *.tfstate
 *.tfstate.backup
+
+node_modules/
+npm-debug.log*
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Environment (NEVER commit these)
+.env
+.env.local
+.env.production
+
+# Build outputs
+build/
+dist/
+coverage/
+
+# Terraform state (contains sensitive data)
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+tfplan
+
+# Security reports (generated files)
+security/reports/
+
+# IDE
+.idea/
+.vscode/settings.json
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

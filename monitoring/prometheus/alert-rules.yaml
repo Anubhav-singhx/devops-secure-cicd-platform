@@ -1,0 +1,58 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: taskmanager-alerts
+  namespace: monitoring
+  labels:
+    # This label tells Prometheus to pick up these rules
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: taskmanager.availability
+      interval: 30s
+      rules:
+
+        # Alert if no pods are running
+        - alert: ApplicationDown
+          expr: kube_deployment_status_replicas_available{namespace="staging", deployment="backend"} == 0
+          for: 1m    # Must be true for 1 minute before alerting (avoids false alarms during restarts)
+          labels:
+            severity: critical
+          annotations:
+            summary: "Backend application is down"
+            description: "No backend pods are available in staging namespace"
+
+        # Alert if error rate exceeds 5%
+        - alert: HighErrorRate
+          expr: |
+            rate(http_requests_total{status_code=~"5.."}[5m]) /
+            rate(http_requests_total[5m]) * 100 > 5
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High HTTP error rate"
+            description: "Error rate is {{ $value | printf \"%.2f\" }}% (threshold: 5%)"
+
+        # Alert if a pod keeps restarting (crash loop)
+        - alert: PodCrashLooping
+          expr: |
+            rate(kube_pod_container_status_restarts_total{namespace="staging"}[15m]) * 60 * 15 > 3
+          for: 0m    # Alert immediately
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pod {{ $labels.pod }} is crash looping"
+            description: "Pod restarted {{ $value | printf \"%.0f\" }} times in 15 minutes"
+
+    - name: infrastructure
+      rules:
+        # Alert if disk is getting full
+        - alert: DiskSpaceLow
+          expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 15
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Low disk space"
+            description: "Only {{ $value | printf \"%.1f\" }}% disk space remaining"
