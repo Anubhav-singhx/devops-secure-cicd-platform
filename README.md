@@ -190,6 +190,5 @@ Grafana dashboards (access via `minikube service kube-prometheus-stack-grafana -
 - [CI/CD Explained](docs/CICD.md)
 - [Security Details](docs/SECURITY.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
-ok
 ---
 **Built to demonstrate production DevSecOps practices at zero cost.**
