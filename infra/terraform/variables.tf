@@ -14,7 +14,7 @@ variable "db_password" {
   description = "PostgreSQL database password"
   type        = string
   sensitive   = true
-  default     = "postgres-terraform-password"
+  default     = "postgres123"
 }
 
 variable "jwt_secret" {
