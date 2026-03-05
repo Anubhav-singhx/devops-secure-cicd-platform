@@ -19,6 +19,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # ✅ Fix: GHCR requires all-lowercase image names
+      - name: Set lowercase image name
+        run: echo "IMAGE_NAME_LOWER=$(echo ${{ env.IMAGE_NAME }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Generate image tag
         id: tag
         run: echo "sha_short=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
@@ -32,8 +36,8 @@ jobs:
 
       - name: Verify images exist
         run: |
-          docker manifest inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/backend:latest
-          docker manifest inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:latest
+          docker manifest inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}/backend:latest
+          docker manifest inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}/frontend:latest
           echo "✅ Both images verified in registry"
 
       - name: Update Kubernetes manifests
@@ -41,11 +45,11 @@ jobs:
           SHA="${{ steps.tag.outputs.sha_short }}"
 
           # Update backend image tag
-          sed -i "s|image: ghcr.io/.*/backend:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/backend:sha-${SHA}|g" \
+          sed -i "s|image: ghcr.io/.*/backend:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}/backend:sha-${SHA}|g" \
             infra/kubernetes/base/backend.yaml
 
           # Update frontend image tag
-          sed -i "s|image: ghcr.io/.*/frontend:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:sha-${SHA}|g" \
+          sed -i "s|image: ghcr.io/.*/frontend:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}/frontend:sha-${SHA}|g" \
             infra/kubernetes/base/frontend.yaml
 
           echo "Updated manifests to use images tagged: sha-${SHA}"
