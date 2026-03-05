@@ -1,9 +1,9 @@
 # 🚀 Enterprise-Grade Secure CI/CD Platform
 
-[![CI Pipeline](https://github.com/YOUR_USERNAME/devops-secure-cicd-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/devops-secure-cicd-platform/actions/workflows/ci.yml)
-[![CD Staging](https://github.com/YOUR_USERNAME/devops-secure-cicd-platform/actions/workflows/cd-staging.yml/badge.svg)](https://github.com/YOUR_USERNAME/devops-secure-cicd-platform/actions/workflows/cd-staging.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=YOUR_PROJECT_KEY&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=YOUR_PROJECT_KEY)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=YOUR_PROJECT_KEY&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=YOUR_PROJECT_KEY)
+[![CI Pipeline](https://github.com/Anubhav-singhx/devops-secure-cicd-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/Anubhav-singhx/devops-secure-cicd-platform/actions/workflows/ci.yml)
+[![CD Staging](https://github.com/Anubhav-singhx/devops-secure-cicd-platform/actions/workflows/cd-staging.yml/badge.svg)](https://github.com/Anubhav-singhx/devops-secure-cicd-platform/actions/workflows/cd-staging.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=anubhav-singhx_devops-secure-cicd-platform&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=anubhav-singhx_devops-secure-cicd-platform)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=anubhav-singhx_devops-secure-cicd-platform&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=anubhav-singhx_devops-secure-cicd-platform)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > **Production-grade DevSecOps pipeline** built entirely on free tools. Automated security scanning at every stage, Kubernetes orchestration, Infrastructure as Code, and full observability — $0/month vs $385+/month on AWS.
@@ -20,6 +20,7 @@
 | **Total** | **$380+/month** | **$0/month** |
 
 ## 🏗️ Architecture
+
 ```
 Developer Pushes Code
          ↓
@@ -73,7 +74,7 @@ Developer Pushes Code
 
 ### 1. Clone
 ```bash
-git clone https://github.com/YOUR_USERNAME/devops-secure-cicd-platform.git
+git clone https://github.com/Anubhav-singhx/devops-secure-cicd-platform.git
 cd devops-secure-cicd-platform
 ```
 
@@ -114,6 +115,7 @@ docker-compose up --build
 ```
 
 ## 📁 Project Structure
+
 ```
 devops-secure-cicd-platform/
 ├── app/
@@ -153,6 +155,10 @@ devops-secure-cicd-platform/
 │   ├── trivy/scan.sh         # Local security scan
 │   └── zap/zap-scan.sh       # DAST scan script
 └── docs/
+    ├── SETUP.md              # Full setup guide
+    ├── CICD.md               # Pipeline documentation
+    ├── SECURITY.md           # Security details
+    └── TROUBLESHOOTING.md    # Common issues
 ```
 
 ## 🔄 CI/CD Pipeline Details
@@ -172,11 +178,12 @@ devops-secure-cicd-platform/
 ## 📊 Monitoring
 
 Grafana dashboards (access via `minikube service kube-prometheus-stack-grafana -n monitoring`):
+- **Kubernetes / Compute Resources / Cluster** — pod CPU and memory usage
+- **Kubernetes / Compute Resources / Namespace** — per-namespace breakdown
 - **Node Exporter Full** (ID: 1860) — server metrics
-- **Kubernetes Cluster** (ID: 315) — pod/node health
-- **Custom App Dashboard** — request rate, error rate, P95 latency
 
 ## 🧪 Run Security Scans Locally
+
 ```bash
 # Trivy scan (vulnerabilities)
 ./security/trivy/scan.sh
@@ -186,9 +193,12 @@ Grafana dashboards (access via `minikube service kube-prometheus-stack-grafana -
 ```
 
 ## 📖 Documentation
+
 - [Setup Guide](docs/SETUP.md)
 - [CI/CD Explained](docs/CICD.md)
 - [Security Details](docs/SECURITY.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
+
 ---
+
 **Built to demonstrate production DevSecOps practices at zero cost.**
