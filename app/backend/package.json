@@ -27,7 +27,7 @@
     "morgan": "^1.10.0",
     "pg": "^8.11.3",
     "prom-client": "^15.1.0",
-    "uuid": "^8.3.2"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",
